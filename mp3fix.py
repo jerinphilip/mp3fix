@@ -34,14 +34,14 @@ def decrypt(data):
 
 
 def writesong(filename, data):
-    tag = eyeD3.Tag()
-    tag.link(filename)
-    tag.setversion([2,3,0])
-    tag.setArtist(data["artist"][0]["name"])
-    tag.setAlbum(data["album_title"])
-    tag.setAlbumArtist(data["artist"][1]["name"])
-    tag.setTitle(data["track_title"])
+    af = eyed3.load(filename)
+    af.tag.artist = data["artist"][0]["name"]
+    af.tag.album = data["album_title"]
+    af.tag.album_artist = data["artist"][1]["name"]
+    af.tag.title = data["track_title"]
     af.tag.save()
+    readsong(filename)
+    print "Successfully Written"
 
 def readsong(filename):
     af = eyed3.load(filename)
